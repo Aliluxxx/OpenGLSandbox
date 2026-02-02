@@ -1,3 +1,6 @@
 [submodule "sandbox-core/libs/glfw"]
 	path = sandbox-core/libs/glfw
 	url = https://github.com/glfw/glfw
+[submodule "sandbox-core/libs/glm"]
+	path = sandbox-core/libs/glm
+	url = https://github.com/g-truc/glm
