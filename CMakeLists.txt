@@ -61,6 +61,9 @@ endfunction()
 
 include(scripts/dependencies.cmake)
 
+# GLAD
+add_subdirectory("sandbox-core/libs/glad")
+
 # GLFW
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
