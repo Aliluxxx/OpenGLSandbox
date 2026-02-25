@@ -19,7 +19,7 @@ namespace sb {
 		m_Window->SetEventCallback(SB_BIND_EVENT_FN(Application::OnEvent));
 
 		ContextSpecification cSpec;
-		cSpec.WindowPtr = m_Window->GetNativeWindow();
+		cSpec.Window = m_Window;
 		cSpec.AppName = m_Window->GetTitle();
 		cSpec.EngineName = "OpenGL Core";
 #ifndef SB_DIST
@@ -35,8 +35,8 @@ namespace sb {
 	Application::~Application() {
 
 		m_LayerStack.Clear();
-		m_Window->GetContext()->Destroy();
 		Renderer::Shutdown();
+		m_Window->GetContext()->Destroy();
 	}
 
 	void Application::OnEvent(Event& e) {

@@ -1,6 +1,7 @@
 #include "Core/Renderer/OpenGLDebuggerCallback.h"
 
 #include "Core/Renderer/Context.h"
+#include "Core/Base/Window.h"
 
 namespace sb {
 
@@ -12,7 +13,12 @@ namespace sb {
 
 		SB_TRACE("Context initialization");
 
-		glfwMakeContextCurrent(reinterpret_cast<GLFWwindow*>(m_Specification.WindowPtr));
+		glfwSetFramebufferSizeCallback(reinterpret_cast<GLFWwindow*>(m_Specification.Window->GetNativeWindow()), [](GLFWwindow* window, int width, int height) {
+
+			glViewport(0, 0, width, height);
+		});
+
+		glfwMakeContextCurrent(reinterpret_cast<GLFWwindow*>(m_Specification.Window->GetNativeWindow()));
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 			SB_ASSERT(false, "Failed to load GLAD");
@@ -48,7 +54,7 @@ namespace sb {
 
 	void Context::EndFrame() {
 
-		glfwSwapBuffers(reinterpret_cast<GLFWwindow*>(m_Specification.WindowPtr));
+		glfwSwapBuffers(reinterpret_cast<GLFWwindow*>(m_Specification.Window->GetNativeWindow()));
 	}
 
 	Ref<Context> Context::Create(const ContextSpecification& spec) {

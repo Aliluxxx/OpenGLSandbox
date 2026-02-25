@@ -8,9 +8,11 @@
 
 namespace sb {
 
+	class Window;
+
 	struct ContextSpecification {
 
-		void* WindowPtr = nullptr;
+		sb::Ref<Window> Window = nullptr;
 		bool EnableDebug = true;
 		std::string AppName = "";
 		std::string EngineName = "";
