@@ -12,8 +12,6 @@ void SandboxLayer::OnDetach() {
 
 }
 
-sb::GamepadID id;
-
 void SandboxLayer::OnUpdate(sb::Time ts) {
 
 	sb::Sleep(sb::Milliseconds(1));
