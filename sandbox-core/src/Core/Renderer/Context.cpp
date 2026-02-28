@@ -46,10 +46,10 @@ namespace sb {
 		SB_TRACE("Context deinitialization");
 	}
 
-	void Context::BeginFrame() {
+	void Context::BeginFrame(const Vector4f& color) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
 	void Context::EndFrame() {

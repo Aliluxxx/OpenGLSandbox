@@ -26,7 +26,7 @@ namespace sb {
 
 		void Init();
 		void Destroy();
-		void BeginFrame();
+		void BeginFrame(const Vector4f& color = Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
 		void EndFrame();
 
 		inline const ContextSpecification& GetSpecification() const { return m_Specification; }
