@@ -2,11 +2,11 @@
 
 namespace sb {
 
-	Scope<RendererAPI> Renderer::s_RendererAPI = nullptr;
+	Ref<Context> Renderer::m_Context = nullptr;
 
 	void Renderer::Init(Ref<Context> context) {
 
-		s_RendererAPI = RendererAPI::Create(context);
+		m_Context = context;
 	}
 
 	void Renderer::Shutdown() {
@@ -16,11 +16,11 @@ namespace sb {
 
 	void Renderer::Begin() {
 
-		s_RendererAPI->Begin();
+
 	}
 
 	void Renderer::End() {
 
-		s_RendererAPI->End();
+
 	}
 }

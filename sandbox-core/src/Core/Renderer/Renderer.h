@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Core/Renderer/Context.h"
-#include "Core/Renderer/RendererAPI.h"
 
 namespace sb {
 
@@ -17,6 +16,6 @@ namespace sb {
 
 	private:
 
-		static Scope<RendererAPI> s_RendererAPI;
+		static Ref<Context> m_Context;
 	};
 }
