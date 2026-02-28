@@ -21,7 +21,7 @@ namespace sb {
 		std::string Name;
 		ShaderDataType Type;
 		Uint32 Size;
-		Uint32 Offset;
+		std::size_t Offset;
 		bool Normalized;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false);
@@ -64,7 +64,7 @@ namespace sb {
 		}
 
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
-		inline const Uint32 GetStride() const { m_Stride; }
+		inline const Uint32& GetStride() const { return m_Stride; }
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
@@ -93,13 +93,16 @@ namespace sb {
 	public:
 
 		VertexBuffer(Uint32 size);
-		VertexBuffer(float* vertices, Uint32 size);
+		VertexBuffer(void* vertices, Uint32 size);
 		~VertexBuffer();
 
 		inline const GLuint& GetRendererID() const { return m_RendererID; }
 		inline const BufferLayout& GetLayout() const { return m_BufferLayout; }
-		void SetData(float* vertices, Uint32 size, Uint32 offset = 0);
+		void SetData(void* vertices, Uint32 size_in_bytes, Uint32 offset = 0);
 		void SetLayout(const BufferLayout& layout);
+
+		static Ref<VertexBuffer> Create(Uint32 size_in_bytes);
+		static Ref<VertexBuffer> Create(void* vertices, Uint32 size_in_bytes);
 
 	private:
 
@@ -114,10 +117,14 @@ namespace sb {
 		IndexBuffer(Uint32* indices, Uint32 size);
 		~IndexBuffer();
 
+		inline const Uint32& GetCount() const { return m_Size; }
 		inline const GLuint& GetRendererID() const { return m_RendererID; }
+
+		static Ref<IndexBuffer> Create(Uint32* indices, Uint32 size);
 
 	private:
 
 		GLuint m_RendererID;
+		Uint32 m_Size;
 	};
 }
