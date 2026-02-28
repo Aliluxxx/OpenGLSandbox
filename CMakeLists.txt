@@ -61,6 +61,13 @@ endfunction()
 
 include(scripts/dependencies.cmake)
 
+# ASSIMP
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+add_subdirectory("sandbox-core/libs/assimp")
+set_configurations_fn(assimp)
+set_output_dirs_fn(assimp "libs")
+
 # GLAD
 add_subdirectory("sandbox-core/libs/glad")
 

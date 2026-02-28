@@ -11,12 +11,14 @@ set(SANDBOX_LIB_DIRS
 
 # Submodule libraries
 list(APPEND SANDBOX_INCLUDE_DIRS
+	${CMAKE_SOURCE_DIR}/sandbox-core/libs/assimp/include
 	${CMAKE_SOURCE_DIR}/sandbox-core/libs/glad/include
 	${CMAKE_SOURCE_DIR}/sandbox-core/libs/glfw/include
 	${CMAKE_SOURCE_DIR}/sandbox-core/libs/glm
 	${CMAKE_SOURCE_DIR}/sandbox-core/libs/spdlog/include
 )
 list(APPEND SANDBOX_LIB_DIRS
+	assimp
 	glad
 	glfw
 )
