@@ -58,3 +58,6 @@ vendor/**
 
 # macOS
 **/.DS_Store
+
+# Resources
+!sandbox/resources/**
