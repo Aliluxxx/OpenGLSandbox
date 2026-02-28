@@ -39,3 +39,25 @@
 
 # debug information files
 *.dwo
+
+# Pycache
+**/__pycache__/**
+
+# Build
+build/**
+
+# Vendor
+vendor/**
+
+# Scripts
+**.bat
+**.sh
+
+# Link
+**.lnk
+
+# macOS
+**/.DS_Store
+
+# Resources
+!sandbox/resources/**

@@ -1,0 +1,40 @@
+#pragma once
+
+#ifndef SB_PRECOMPILED_HEADER
+#include <string>
+#endif
+
+#include "Core/Base/Base.h"
+
+namespace sb {
+
+	class Window;
+
+	struct ContextSpecification {
+
+		sb::Ref<Window> Window = nullptr;
+		bool EnableDebug = true;
+		std::string AppName = "";
+		std::string EngineName = "";
+	};
+
+	class Context {
+
+	public:
+
+		Context(const ContextSpecification& spec);
+
+		void Init();
+		void Destroy();
+		void BeginFrame(const Vector4f& color = Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
+		void EndFrame();
+
+		inline const ContextSpecification& GetSpecification() const { return m_Specification; }
+
+		static Ref<Context> Create(const ContextSpecification& spec = ContextSpecification());
+
+	private:
+
+		ContextSpecification m_Specification;
+	};
+}
