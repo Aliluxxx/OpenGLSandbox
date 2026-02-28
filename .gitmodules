@@ -7,3 +7,6 @@
 [submodule "sandbox-core/libs/spdlog"]
 	path = sandbox-core/libs/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "sandbox-core/libs/assimp"]
+	path = sandbox-core/libs/assimp
+	url = https://github.com/assimp/assimp
