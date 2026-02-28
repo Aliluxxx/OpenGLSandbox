@@ -76,3 +76,8 @@ namespace sb {
 }
 
 #include "Core/Base/Assert.h"
+#include "Core/Base/Vector2.h"
+#include "Core/Base/Vector3.h"
+#include "Core/Base/Vector4.h"
+#include "Core/Base/Matrix3.h"
+#include "Core/Base/Matrix4.h"
