@@ -2,7 +2,6 @@ import sys
 import os
 import platform
 
-import requests
 import time
 import urllib
 
@@ -34,6 +33,7 @@ def GetPlatform():
 	return (system, arch)
 
 def DownloadFile(url, filepath):
+	import requests
 	path = filepath
 	filepath = os.path.abspath(filepath)
 	os.makedirs(os.path.dirname(filepath), exist_ok=True)
