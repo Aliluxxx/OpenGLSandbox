@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.29)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-project(Sandbox VERSION 1.0 LANGUAGES CXX)
+project(Sandbox VERSION 1.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -67,6 +67,9 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 add_subdirectory("sandbox-core/libs/assimp")
 set_configurations_fn(assimp)
 set_output_dirs_fn(assimp "libs")
+if(NOT MSVC)
+	target_compile_options(assimp PRIVATE -Wno-error=maybe-uninitialized)
+endif()
 
 # GLAD
 add_subdirectory("sandbox-core/libs/glad")
