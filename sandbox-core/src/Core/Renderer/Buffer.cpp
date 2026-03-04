@@ -56,7 +56,7 @@ namespace sb {
 
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(Uint32), indices, GL_STATIC_DRAW);
 	}
 
 	IndexBuffer::~IndexBuffer() {
