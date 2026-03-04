@@ -93,16 +93,16 @@ namespace sb {
 	public:
 
 		VertexBuffer(Uint32 size);
-		VertexBuffer(void* vertices, Uint32 size);
+		VertexBuffer(const void* vertices, Uint32 size);
 		~VertexBuffer();
 
 		inline const GLuint& GetRendererID() const { return m_RendererID; }
 		inline const BufferLayout& GetLayout() const { return m_BufferLayout; }
-		void SetData(void* vertices, Uint32 size_in_bytes, Uint32 offset = 0);
+		void SetData(const void* vertices, Uint32 size_in_bytes, Uint32 offset = 0);
 		void SetLayout(const BufferLayout& layout);
 
 		static Ref<VertexBuffer> Create(Uint32 size_in_bytes);
-		static Ref<VertexBuffer> Create(void* vertices, Uint32 size_in_bytes);
+		static Ref<VertexBuffer> Create(const void* vertices, Uint32 size_in_bytes);
 
 	private:
 
@@ -114,13 +114,13 @@ namespace sb {
 
 	public:
 
-		IndexBuffer(Uint32* indices, Uint32 size);
+		IndexBuffer(const Uint32* indices, Uint32 size);
 		~IndexBuffer();
 
 		inline const Uint32& GetCount() const { return m_Size; }
 		inline const GLuint& GetRendererID() const { return m_RendererID; }
 
-		static Ref<IndexBuffer> Create(Uint32* indices, Uint32 size);
+		static Ref<IndexBuffer> Create(const Uint32* indices, Uint32 size);
 
 	private:
 

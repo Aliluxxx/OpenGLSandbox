@@ -16,7 +16,7 @@ namespace sb {
 		glBufferData(GL_ARRAY_BUFFER, size_in_bytes, nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	VertexBuffer::VertexBuffer(void* vertices, Uint32 size_in_bytes) {
+	VertexBuffer::VertexBuffer(const void* vertices, Uint32 size_in_bytes) {
 
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
@@ -28,7 +28,7 @@ namespace sb {
 		glDeleteBuffers(1, &m_RendererID);
 	}
 
-	void VertexBuffer::SetData(void* vertices, Uint32 size_in_bytes, Uint32 offset) {
+	void VertexBuffer::SetData(const void* vertices, Uint32 size_in_bytes, Uint32 offset) {
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferSubData(GL_ARRAY_BUFFER, offset, size_in_bytes, vertices);
@@ -44,12 +44,12 @@ namespace sb {
 		return CreateRef<VertexBuffer>(size_in_bytes);
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(void* vertices, Uint32 size_in_bytes) {
+	Ref<VertexBuffer> VertexBuffer::Create(const void* vertices, Uint32 size_in_bytes) {
 
 		return CreateRef<VertexBuffer>(vertices, size_in_bytes);
 	}
 
-	IndexBuffer::IndexBuffer(Uint32* indices, Uint32 size)
+	IndexBuffer::IndexBuffer(const Uint32* indices, Uint32 size)
 		: m_Size(size)
 
 	{
@@ -64,7 +64,7 @@ namespace sb {
 		glDeleteBuffers(1, &m_RendererID);
 	}
 
-	Ref<IndexBuffer> IndexBuffer::Create(Uint32* indices, Uint32 size) {
+	Ref<IndexBuffer> IndexBuffer::Create(const Uint32* indices, Uint32 size) {
 
 		return CreateRef<IndexBuffer>(indices, size);
 	}
