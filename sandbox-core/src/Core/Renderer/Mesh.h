@@ -15,25 +15,26 @@ namespace sb {
 
 		sb::Vector3f Position;
 		sb::Vector4f Color;
-		sb::Vector3f Normals;
+		sb::Vector3f Normal;
 		sb::Vector2f TexCoords;
-		sb::Vector2f Tangent;
+		sb::Vector3f Tangent;
+		sb::Vector3f Bitangent;
 	};
 
 	class Mesh {
 
 	public:
 
-		Mesh(std::vector<Vertex>& vertices, std::vector<Uint32>& indices, GLenum primitive = GL_TRIANGLES);
+		Mesh(std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform = Matrix4f(1.0f));
 		Mesh(const Mesh& other);
 		Mesh(Mesh&& other) noexcept;
 		Mesh& operator=(const Mesh& other);
 
-		static Ref<Mesh> Create(std::vector<Vertex>& vertices, std::vector<Uint32>& indices, GLenum primitive = GL_TRIANGLES);
+		static Ref<Mesh> Create(std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform);
 
 		inline const Ref<VertexArray>& GetVertexArray() const { return m_VAO; }
-		inline const GLenum& GetPrimitive() const { return m_Primitive; }
 		inline Uint32 GetIndexCount() const { return m_VAO->GetIndexBuffer()->GetCount(); }
+		inline const Matrix4f& GetTransformMatrix() const { return m_Transform; }
 
 	private:
 
@@ -41,7 +42,7 @@ namespace sb {
 
 		std::vector<Vertex> m_Vertices;
 		std::vector<Uint32> m_Indices;
-		GLenum m_Primitive;
+		Matrix4f m_Transform;
 		Ref<VertexArray> m_VAO;
 	};
 }
