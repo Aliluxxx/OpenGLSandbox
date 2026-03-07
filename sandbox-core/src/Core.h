@@ -32,3 +32,4 @@
 #include <Core/Renderer/VertexArray.h>
 #include <Core/Renderer/Buffer.h>
 #include <Core/Renderer/Mesh.h>
+#include <Core/Renderer/Model.h>
