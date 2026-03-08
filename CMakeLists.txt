@@ -34,7 +34,7 @@ function(set_configurations_fn target)
 		$<$<AND:$<CONFIG:Dist>,$<NOT:$<CXX_COMPILER_ID:MSVC>>>:-O3 -DNDEBUG -DSB_DIST>
 
 		# MSVC
-		$<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:MSVC>>:/Od /Zi /DDEBUG /DSB_DEBUG>
+		$<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:MSVC>>:/Od /ZI /DDEBUG /DSB_DEBUG>
 		$<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:MSVC>>:/O2 /Zi /DSB_RELEASE>
 		$<$<AND:$<CONFIG:Dist>,$<CXX_COMPILER_ID:MSVC>>:/O2 /DNDEBUG /DSB_DIST>
 	)
