@@ -25,13 +25,14 @@ namespace sb {
 
 	public:
 
-		Mesh(std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform = Matrix4f(1.0f));
+		Mesh(const std::string& name, std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform = Matrix4f(1.0f));
 		Mesh(const Mesh& other);
 		Mesh(Mesh&& other) noexcept;
 		Mesh& operator=(const Mesh& other);
 
-		static Ref<Mesh> Create(std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform);
+		static Ref<Mesh> Create(const std::string& name, std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform);
 
+		inline const std::string& GetName() const { return m_Name; }
 		inline const Ref<VertexArray>& GetVertexArray() const { return m_VAO; }
 		inline Uint32 GetIndexCount() const { return m_VAO->GetIndexBuffer()->GetCount(); }
 		inline const Matrix4f& GetTransformMatrix() const { return m_Transform; }
@@ -40,6 +41,7 @@ namespace sb {
 
 		void SetupBuffers();
 
+		std::string m_Name;
 		std::vector<Vertex> m_Vertices;
 		std::vector<Uint32> m_Indices;
 		Matrix4f m_Transform;

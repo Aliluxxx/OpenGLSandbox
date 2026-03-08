@@ -2,8 +2,9 @@
 
 namespace sb {
 
-	Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform)
+	Mesh::Mesh(const std::string& name, std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform)
 		:
+		m_Name(name),
 		m_Vertices(std::move(vertices)),
 		m_Indices(std::move(indices)),
 		m_Transform(transform)
@@ -15,6 +16,7 @@ namespace sb {
 
 	Mesh::Mesh(const Mesh& other)
 		:
+		m_Name(other.m_Name),
 		m_Vertices(other.m_Vertices),
 		m_Indices(other.m_Indices),
 		m_Transform(other.m_Transform)
@@ -26,6 +28,7 @@ namespace sb {
 
 	Mesh::Mesh(Mesh&& other) noexcept
 		:
+		m_Name(std::move(other.m_Name)),
 		m_Vertices(std::move(other.m_Vertices)),
 		m_Indices(std::move(other.m_Indices)),
 		m_Transform(other.m_Transform),
@@ -38,6 +41,7 @@ namespace sb {
 
 	Mesh& Mesh::operator=(const Mesh& other) {
 
+		this->m_Name = other.m_Name;
 		this->m_Vertices = other.m_Vertices;
 		this->m_Indices = other.m_Indices;
 		this->m_Transform = other.m_Transform;
@@ -46,9 +50,9 @@ namespace sb {
 		return *this;
 	}
 
-	Ref<Mesh> Mesh::Create(std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform) {
+	Ref<Mesh> Mesh::Create(const std::string& name, std::vector<Vertex>& vertices, std::vector<Uint32>& indices, const Matrix4f& transform) {
 
-		return CreateRef<Mesh>(vertices, indices, transform);
+		return CreateRef<Mesh>(name, vertices, indices, transform);
 	}
 
 	void Mesh::SetupBuffers() {

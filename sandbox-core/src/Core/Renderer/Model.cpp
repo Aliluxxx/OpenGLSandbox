@@ -160,6 +160,6 @@ namespace sb {
 				indices.push_back(face.mIndices[j]);
 		}
 
-		return CreateRef<Mesh>(vertices, indices, transform);
+		return CreateRef<Mesh>(mesh->mName.C_Str(), vertices, indices, transform);
 	}
 }
