@@ -29,3 +29,7 @@
 // Renderer includes
 #include <Core/Renderer/Context.h>
 #include <Core/Renderer/Renderer.h>
+#include <Core/Renderer/VertexArray.h>
+#include <Core/Renderer/Buffer.h>
+#include <Core/Renderer/Mesh.h>
+#include <Core/Renderer/Model.h>
