@@ -17,9 +17,11 @@ list(APPEND SANDBOX_INCLUDE_DIRS
 	${CMAKE_SOURCE_DIR}/sandbox-core/libs/glfw/include
 	${CMAKE_SOURCE_DIR}/sandbox-core/libs/glm
 	${CMAKE_SOURCE_DIR}/sandbox-core/libs/spdlog/include
+	${CMAKE_SOURCE_DIR}/sandbox-core/libs/stb/include
 )
 list(APPEND SANDBOX_LIB_DIRS
 	assimp
 	glad
 	glfw
+	stb
 )
