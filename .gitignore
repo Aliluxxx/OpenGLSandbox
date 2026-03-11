@@ -61,3 +61,7 @@ vendor/**
 
 # Resources
 !sandbox/resources/**
+
+# Ignore test sandbox
+**/Test**.cpp
+**/Test**.h
