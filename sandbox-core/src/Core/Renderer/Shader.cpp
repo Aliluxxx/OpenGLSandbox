@@ -1,5 +1,4 @@
 #include "Core/Renderer/Shader.h"
-#include "Core/Renderer/Renderer.h"
 #include <glm/gtc/type_ptr.hpp>
 
 namespace sb {
