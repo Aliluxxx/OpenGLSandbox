@@ -22,11 +22,12 @@ namespace sb {
 		ShaderDataType Type;
 		Uint32 Size;
 		std::size_t Offset;
+		Uint32 Divisor;
 		bool Normalized;
 
-		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false);
+		BufferElement(ShaderDataType type, const std::string& name, Uint32 divisor = 0, bool normalized = false);
 
-		Uint32 BufferElement::GetComponentCount() const {
+		Uint32 GetComponentCount() const {
 
 			switch (Type) {
 
@@ -47,16 +48,27 @@ namespace sb {
 
 			return 0;
 		}
+
+		Uint32 GetVertexAttributeCount() const {
+
+			switch (Type) {
+
+				case ShaderDataType::Mat3: return 3;
+				case ShaderDataType::Mat4: return 4;
+			}
+
+			return 1;
+		}
 	};
 
 	class BufferLayout {
 
 	public:
 
-		BufferLayout() : m_Elements(), m_Stride(0) {}
+		BufferLayout() : m_Elements(), m_Index(0), m_Stride(0) {}
 
-		BufferLayout(const std::initializer_list<BufferElement>& elements)
-			: m_Elements(elements), m_Stride(0)
+		BufferLayout(const std::initializer_list<BufferElement>& elements, Uint32 index = 0)
+			: m_Elements(elements), m_Index(index), m_Stride(0)
 
 		{
 
@@ -64,7 +76,8 @@ namespace sb {
 		}
 
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
-		inline const Uint32& GetStride() const { return m_Stride; }
+		inline const Uint32 GetIndex() const { return m_Index; }
+		inline const Uint32 GetStride() const { return m_Stride; }
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
@@ -85,6 +98,7 @@ namespace sb {
 		}
 
 		std::vector<BufferElement> m_Elements;
+		Uint32 m_Index;
 		Uint32 m_Stride;
 	};
 

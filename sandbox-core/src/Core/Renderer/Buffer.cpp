@@ -4,8 +4,8 @@
 
 namespace sb {
 
-	BufferElement::BufferElement(ShaderDataType type, const std::string& name, bool normalized)
-		: Name(name), Type(type), Size(Utils::ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
+	BufferElement::BufferElement(ShaderDataType type, const std::string& name, Uint32 divisor, bool normalized)
+		: Name(name), Type(type), Size(Utils::ShaderDataTypeSize(type)), Offset(0), Divisor(divisor), Normalized(normalized)
 
 	{}
 
