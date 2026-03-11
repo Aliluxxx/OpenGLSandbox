@@ -7,13 +7,10 @@
 namespace sb {
 
 	static Matrix4f ConvertAssimpMatrixToGLM(const aiMatrix4x4& mat);
-	static void ProcessNode(std::vector<Ref<Mesh>>& meshes, aiNode* node, const aiScene* scene, const Matrix4f& parent_transform);
-	static Ref<Mesh> ProcessMesh(aiMesh* mesh, const aiScene* scene, const Matrix4f& transform);
+	static void ProcessNode(std::vector<Mesh>& meshes, aiNode* node, const aiScene* scene, const Matrix4f& parent_transform);
+	static void ProcessMesh(std::vector<Mesh>& meshes, aiMesh* mesh, const aiScene* scene, const Matrix4f& transform);
 
-	Model::Model(const std::filesystem::path& path)
-		: m_Position(0.0f, 0.0f, 0.0f)
-
-	{
+	Model::Model(const std::filesystem::path& path) {
 
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(path.string(),
@@ -40,6 +37,11 @@ namespace sb {
 		m_Meshes.reserve(scene->mNumMeshes);
 		ProcessNode(m_Meshes, scene->mRootNode, scene, Matrix4f(1.0f));
 	}
+
+	Model::Model(const Model& other)
+		: m_Meshes(other.m_Meshes)
+
+	{}
 
 	Ref<Model> Model::Create(const std::filesystem::path& path) {
 
@@ -69,21 +71,21 @@ namespace sb {
 		return transform;
 	}
 
-	void ProcessNode(std::vector<Ref<Mesh>>& meshes, aiNode* node, const aiScene* scene, const Matrix4f& parent_transform) {
+	void ProcessNode(std::vector<Mesh>& meshes, aiNode* node, const aiScene* scene, const Matrix4f& parent_transform) {
 
 		Matrix4f worldTransform = parent_transform * ConvertAssimpMatrixToGLM(node->mTransformation);
 
 		for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			meshes.push_back(ProcessMesh(mesh, scene, worldTransform));
+			ProcessMesh(meshes, mesh, scene, worldTransform);
 		}
 
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 			ProcessNode(meshes, node->mChildren[i], scene, worldTransform);
 	}
 
-	Ref<Mesh> ProcessMesh(aiMesh* mesh, const aiScene* scene, const Matrix4f& transform) {
+	void ProcessMesh(std::vector<Mesh>& meshes, aiMesh* mesh, const aiScene* scene, const Matrix4f& transform) {
 
 		unsigned int indicesCount = 0;
 		for (unsigned int i = 0; i < mesh->mNumFaces; i++)
@@ -160,6 +162,6 @@ namespace sb {
 				indices.push_back(face.mIndices[j]);
 		}
 
-		return CreateRef<Mesh>(mesh->mName.C_Str(), vertices, indices, transform);
+		meshes.emplace_back(mesh->mName.C_Str(), vertices, indices, transform);
 	}
 }
