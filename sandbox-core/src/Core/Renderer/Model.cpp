@@ -48,6 +48,11 @@ namespace sb {
 		return CreateRef<Model>(path);
 	}
 
+	Ref<Model> Model::Create(const Ref<Model>& other) {
+
+		return CreateRef<Model>(*other.get());
+	}
+
 	Matrix4f ConvertAssimpMatrixToGLM(const aiMatrix4x4& mat) {
 
 		Matrix4f transform(1.0f);
