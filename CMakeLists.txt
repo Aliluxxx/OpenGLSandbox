@@ -92,6 +92,9 @@ set_configurations_fn(glm)
 add_subdirectory("sandbox-core/libs/spdlog")
 set_configurations_fn(spdlog)
 
+# STB
+add_subdirectory("sandbox-core/libs/stb")
+
 add_subdirectory("sandbox")
 add_subdirectory("sandbox-core")
 
