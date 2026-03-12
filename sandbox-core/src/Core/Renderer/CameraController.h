@@ -27,9 +27,9 @@ namespace sb {
 		virtual void OnResize(float width, float height) override;
 
 		void SetSpeed(float speed);
-		inline const float GetSpeed() const { return m_Speed; }
+		inline float GetSpeed() const { return m_Speed; }
 		void SetSensitivity(float sensitivity);
-		inline const float GetSensitivity() const { return m_Sensitivity; }
+		inline float GetSensitivity() const { return m_Sensitivity; }
 		inline sb::Matrix4f GetViewProjectionMatrix() { return m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix(); }
 		void SetCameraMovementDisabled(bool disable);
 		inline const FlyCamera& GetCamera() const { return m_Camera; }
