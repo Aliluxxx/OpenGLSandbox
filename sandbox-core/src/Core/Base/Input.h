@@ -27,14 +27,29 @@ namespace sb {
 			return s_Instance->IsMouseButtonPressedImpl(button);
 		}
 
+		static void SetMousePosition(Vector2f position) {
+
+			s_Instance->SetMousePositionImpl(position);
+		}
+
 		static Vector2i GetMousePosition() {
 
 			return s_Instance->GetMousePositionImpl();
 		}
 
+		static void SetMouseX(float x) {
+
+			s_Instance->SetMouseXImpl(x);
+		}
+
 		static float GetMouseX() {
 
 			return s_Instance->GetMouseXImpl();
+		}
+
+		static void SetMouseY(float y) {
+
+			s_Instance->SetMouseYImpl(y);
 		}
 
 		static float GetMouseY() {
@@ -73,8 +88,11 @@ namespace sb {
 
 		virtual bool IsKeyPressedImpl(KeyCode keycode) = 0;
 		virtual bool IsMouseButtonPressedImpl(MouseCode button) = 0;
+		virtual void SetMousePositionImpl(Vector2f position) = 0;
 		virtual Vector2i GetMousePositionImpl() = 0;
+		virtual void SetMouseXImpl(float x) = 0;
 		virtual float GetMouseXImpl() = 0;
+		virtual void SetMouseYImpl(float y) = 0;
 		virtual float GetMouseYImpl() = 0;
 
 		static void AddGamepad(GamepadID id);

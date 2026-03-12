@@ -22,6 +22,12 @@ namespace sb {
 		return state == GLFW_PRESS;
 	}
 
+	void GLFWInput::SetMousePositionImpl(Vector2f position) {
+
+		auto window = static_cast<GLFWwindow*>(Application::GetWindow()->GetNativeWindow());
+		glfwSetCursorPos(window, position.x, position.y);
+	}
+
 	Vector2i GLFWInput::GetMousePositionImpl() {
 
 		auto window = static_cast<GLFWwindow*>(Application::GetWindow()->GetNativeWindow());
@@ -30,12 +36,28 @@ namespace sb {
 		return { (float)xpos, (float)ypos };
 	}
 
+	void GLFWInput::SetMouseXImpl(float x) {
+
+		auto window = static_cast<GLFWwindow*>(Application::GetWindow()->GetNativeWindow());
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+		glfwSetCursorPos(window, x, ypos);
+	}
+
 	float GLFWInput::GetMouseXImpl() {
 
 		auto window = static_cast<GLFWwindow*>(Application::GetWindow()->GetNativeWindow());
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
 		return (float)xpos;
+	}
+
+	void GLFWInput::SetMouseYImpl(float y) {
+
+		auto window = static_cast<GLFWwindow*>(Application::GetWindow()->GetNativeWindow());
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+		glfwSetCursorPos(window, xpos, y);
 	}
 
 	float GLFWInput::GetMouseYImpl() {

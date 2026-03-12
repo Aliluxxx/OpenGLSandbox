@@ -13,8 +13,11 @@ namespace sb {
 
 		virtual bool IsKeyPressedImpl(KeyCode keycode) override;
 		virtual bool IsMouseButtonPressedImpl(MouseCode button) override;
+		virtual void SetMousePositionImpl(Vector2f position) override;
 		virtual Vector2i GetMousePositionImpl() override;
+		virtual void SetMouseXImpl(float x) override;
 		virtual float GetMouseXImpl() override;
+		virtual void SetMouseYImpl(float y) override;
 		virtual float GetMouseYImpl() override;
 		virtual Vector2f GetGamepadAxisOffsetImpl(GamepadID id, GamepadAxisCode axis) override;
 		virtual float GetGamepadAxisXOffsetImpl(GamepadID id, GamepadAxisCode axis) override;
