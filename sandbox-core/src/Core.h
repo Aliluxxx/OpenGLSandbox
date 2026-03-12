@@ -33,3 +33,6 @@
 #include <Core/Renderer/Buffer.h>
 #include <Core/Renderer/Mesh.h>
 #include <Core/Renderer/Model.h>
+#include <Core/Renderer/Shader.h>
+#include <Core/Renderer/Camera.h>
+#include <Core/Renderer/CameraController.h>
