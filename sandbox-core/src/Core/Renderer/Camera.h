@@ -27,12 +27,23 @@ namespace sb {
 
 	public:
 
-		OrthographicCamera(float left, float right, float bottom, float top, float aspect_ratio = 1.0f, float zoom = 0.0f);
+		OrthographicCamera(float left, float right, float bottom, float top, float near_plane = -1.0f, float far_plane = 1.0f);
+		OrthographicCamera() = default;
 
 		void SetRotation(float rotation);
-		inline const float& GetRotation() const { return m_Rotation; }
-		void SetAspectRatio(float aspect_ratio);
-		inline float GetAspectRatio() const { return m_AspectRatio; }
+		inline float GetRotation() const { return m_Rotation; }
+		void SetLeft(float left);
+		inline float GetLeft() const { return m_Left; }
+		void SetRight(float right);
+		inline float GetRight() const { return m_Right; }
+		void SetBottom(float bottom);
+		inline float GetBottom() const { return m_Bottom; }
+		void SetTop(float top);
+		inline float GetTop() const { return m_Top; }
+		void SetNearPlane(float near_plane);
+		inline float GetNearPlane() const { return m_NearPlane; }
+		void SetFarPlane(float far_plane);
+		inline float GetFarPlane() const { return m_FarPlane; }
 
 		virtual Matrix4f GetProjectionMatrix() override;
 		virtual Matrix4f GetViewMatrix() override;
@@ -44,8 +55,8 @@ namespace sb {
 		float m_Right = 1.0f;
 		float m_Bottom = -1.0f;
 		float m_Top = 1.0f;
-		float m_AspectRatio = 1.0f;
-		float m_Zoom = 0.0f;
+		float m_NearPlane = -1.0f;
+		float m_FarPlane = -1.0f;
 	};
 
 	// Perspective
@@ -55,6 +66,7 @@ namespace sb {
 	public:
 
 		PerspectiveCamera(float field_of_view, float aspect_ratio, float near_plane, float far_plane);
+		PerspectiveCamera() = default;
 
 		void SetFieldOfView(float field_of_view);
 		inline float GetFieldOfView() const { return m_FieldOfView; }

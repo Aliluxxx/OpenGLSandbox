@@ -9,11 +9,10 @@ namespace sb {
 
 	// Orthographic
 
-	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top, float aspect_ratio, float zoom)
+	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top, float near_plane, float far_plane)
 		:
 		m_Left(left), m_Right(right), m_Bottom(bottom), m_Top(top),
-		m_AspectRatio(aspect_ratio),
-		m_Zoom(zoom)
+		m_NearPlane(near_plane), m_FarPlane(far_plane)
 
 	{}
 
@@ -22,14 +21,39 @@ namespace sb {
 		m_Rotation = rotation;
 	}
 
-	void OrthographicCamera::SetAspectRatio(float aspect_ratio) {
+	void OrthographicCamera::SetLeft(float left) {
 
-		m_AspectRatio = aspect_ratio;
+		m_Left = left;
+	}
+
+	void OrthographicCamera::SetRight(float right) {
+
+		m_Right = right;
+	}
+
+	void OrthographicCamera::SetBottom(float bottom) {
+
+		m_Bottom = bottom;
+	}
+
+	void OrthographicCamera::SetTop(float top) {
+
+		m_Top = top;
+	}
+
+	void OrthographicCamera::SetNearPlane(float near_plane) {
+
+		m_NearPlane = near_plane;
+	}
+
+	void OrthographicCamera::SetFarPlane(float far_plane) {
+
+		m_FarPlane = far_plane;
 	}
 
 	Matrix4f OrthographicCamera::GetProjectionMatrix() {
 
-		return glm::ortho(m_Left, m_Right, m_Bottom, m_Top);
+		return glm::ortho(m_Left, m_Right, m_Bottom, m_Top, m_NearPlane, m_FarPlane);
 	}
 
 	Matrix4f OrthographicCamera::GetViewMatrix() {
@@ -91,7 +115,7 @@ namespace sb {
 		return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 	}
 
-	// Yaw
+	// Fly
 
 	FlyCamera::FlyCamera(float field_of_view, float aspect_ratio, float near_plane, float far_plane)
 		: PerspectiveCamera(field_of_view, aspect_ratio, near_plane, far_plane)
