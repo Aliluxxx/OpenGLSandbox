@@ -65,7 +65,7 @@ namespace sb {
 		auto window = static_cast<GLFWwindow*>(Application::GetWindow()->GetNativeWindow());
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
-		return (float)xpos;
+		return (float)ypos;
 	}
 
 	Vector2f GLFWInput::GetGamepadAxisOffsetImpl(GamepadID id, GamepadAxisCode axis) {
