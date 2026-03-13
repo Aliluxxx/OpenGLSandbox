@@ -82,6 +82,7 @@ namespace sb {
 		FlyCamera m_Camera;
 		float m_Speed = 10.0f;
 		float m_Sensitivity = 0.1f;
+		bool m_Disabled = false;
 
 	private:
 
@@ -90,6 +91,5 @@ namespace sb {
 		bool m_FirstMouse = true;
 		float m_LastXPos = 0.0f;
 		float m_LastYPos = 0.0f;
-		bool m_Disabled = false;
 	};
 }
