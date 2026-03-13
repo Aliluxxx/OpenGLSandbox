@@ -30,6 +30,7 @@ namespace sb {
 		OrthographicCamera(float left, float right, float bottom, float top, float near_plane = -1.0f, float far_plane = 1.0f);
 		OrthographicCamera() = default;
 
+		void SetRectangle(float left, float right, float bottom, float top, float near_plane = NAN, float far_plane = NAN);
 		void SetRotation(float rotation);
 		inline float GetRotation() const { return m_Rotation; }
 		void SetLeft(float left);
@@ -101,6 +102,7 @@ namespace sb {
 	public:
 
 		FlyCamera(float field_of_view, float aspect_ratio, float near_plane, float far_plane);
+		FlyCamera() = default;
 
 		void SetPitch(float pitch);
 		inline float GetPitch() const { return m_Pitch; }

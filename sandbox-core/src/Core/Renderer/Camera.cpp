@@ -16,6 +16,16 @@ namespace sb {
 
 	{}
 
+	void OrthographicCamera::SetRectangle(float left, float right, float bottom, float top, float near_plane, float far_plane) {
+
+		m_Left = left;
+		m_Right = right;
+		m_Bottom = bottom;
+		m_Top = top;
+		m_NearPlane = isnan(near_plane) ? m_NearPlane : near_plane;
+		m_FarPlane = isnan(far_plane) ? m_FarPlane : far_plane;
+	}
+
 	void OrthographicCamera::SetRotation(float rotation) {
 
 		m_Rotation = rotation;
