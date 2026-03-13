@@ -149,4 +149,90 @@ namespace sb {
 
 		return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 	}
+
+	// Editor
+
+	EditorCamera::EditorCamera(float field_of_view, float near_plane, float far_plane)
+		:
+		m_FieldOfView(field_of_view),
+		m_NearPlane(near_plane),
+		m_FarPlane(far_plane)
+
+	{}
+
+	void EditorCamera::SetFieldOfView(float field_of_view) {
+
+		m_FieldOfView = field_of_view;
+	}
+
+	void EditorCamera::SetNearPlane(float near_plane) {
+
+		m_NearPlane = near_plane;
+	}
+
+	void EditorCamera::SetFarPlane(float far_plane) {
+
+		m_FarPlane = far_plane;
+	}
+
+	void EditorCamera::SetPitch(float pitch) {
+
+		if (pitch > 89.0f)
+			pitch = 89.0f;
+		else if (pitch < -89.0f)
+			pitch = -89.0f;
+		else
+			m_Pitch = pitch;
+	}
+
+	void EditorCamera::SetYaw(float yaw) {
+
+		m_Yaw = yaw;
+	}
+
+	void EditorCamera::SetDistance(float distance) {
+
+		m_Distance = distance;
+	}
+
+	void EditorCamera::SetViewportSize(float width, float height) {
+
+		m_Viewport = Vector2f(width, height);
+	}
+
+	void EditorCamera::SetFocalPoint(const Vector3f& focal_point) {
+
+		m_FocalPoint = focal_point;
+	}
+
+	Vector3f EditorCamera::GetUpDirection() const {
+
+		return glm::rotate(GetOrientation(), Vector3f(0.0f, 1.0f, 0.0f));
+	}
+
+	Vector3f EditorCamera::GetRightDirection() const {
+
+		return glm::rotate(GetOrientation(), Vector3f(1.0f, 0.0f, 0.0f));
+	}
+
+	Vector3f EditorCamera::GetForwardDirection() const {
+
+		return glm::rotate(GetOrientation(), Vector3f(0.0f, 0.0f, -1.0f));
+	}
+
+	Matrix4f EditorCamera::GetProjectionMatrix() {
+
+		return glm::perspective(m_FieldOfView, m_Viewport.x / m_Viewport.y, m_NearPlane, m_FarPlane);
+	}
+
+	Matrix4f EditorCamera::GetViewMatrix() {
+
+		m_Position = m_FocalPoint - GetForwardDirection() * m_Distance;
+		return glm::inverse(glm::translate(Matrix4f(1.0f), m_Position) * glm::toMat4(GetOrientation()));
+	}
+
+	glm::quat EditorCamera::GetOrientation() const {
+
+		return glm::quat(Vector3f(-m_Pitch, -m_Yaw, 0.0f));
+	}
 }

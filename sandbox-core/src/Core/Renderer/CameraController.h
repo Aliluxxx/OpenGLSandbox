@@ -92,4 +92,39 @@ namespace sb {
 		float m_LastXPos = 0.0f;
 		float m_LastYPos = 0.0f;
 	};
+
+	// Editor
+
+	class EditorCameraController : public CameraController {
+
+	public:
+
+		EditorCameraController(float field_of_view, float near_plane, float far_plane);
+		EditorCameraController() = default;
+
+		virtual void OnUpdate(Time ts) override;
+		virtual void OnEvent(Event& e) override;
+		virtual void OnResize(float width, float height) override;
+
+		inline const EditorCamera& GetCamera() const { return m_Camera; }
+		inline sb::Matrix4f GetViewProjectionMatrix() { return m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix(); }
+
+	protected:
+
+		void MousePan(const Vector2f& delta);
+		void MouseRotate(const Vector2f& delta);
+		void MouseZoom(float delta);
+
+		Vector2f GetPanSpeed() const;
+		float GetRotationSpeed() const;
+		float GetZoomSpeed() const;
+
+		EditorCamera m_Camera;
+		bool m_UpdateViewInit = true;
+		Vector2f m_InitialMousePosition = { 0.0f, 0.0f };
+
+	private:
+
+		bool OnMouseScroll(MouseScrolledEvent& e);
+	};
 }

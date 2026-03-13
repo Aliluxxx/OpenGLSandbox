@@ -1,5 +1,8 @@
 #pragma once
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/quaternion.hpp>
+
 #include "Core/Base/Base.h"
 
 namespace sb {
@@ -112,5 +115,51 @@ namespace sb {
 
 		float m_Pitch = 0.0f;
 		float m_Yaw = -90.0f;
+	};
+
+	// Editor
+
+	class EditorCamera : public Camera {
+
+	public:
+
+		EditorCamera(float field_of_view, float near_plane, float far_plane);
+		EditorCamera() = default;
+
+		void SetFieldOfView(float field_of_view);
+		inline float GetFieldOfView() const { return m_FieldOfView; }
+		inline float GetAspectRatio() const { return m_Viewport.x / m_Viewport.y; }
+		void SetNearPlane(float near_plane);
+		inline float GetNearPlane() const { return m_NearPlane; }
+		void SetFarPlane(float far_plane);
+		inline float GetFarPlane() const { return m_FarPlane; }
+		void SetPitch(float pitch);
+		inline float GetPitch() const { return m_Pitch; }
+		void SetYaw(float yaw);
+		inline float GetYaw() const { return m_Yaw; }
+		void SetDistance(float distance);
+		inline float GetDistance() const { return m_Distance; }
+		void SetViewportSize(float width, float height);
+		inline const Vector2f& GetViewport() const { return m_Viewport; }
+		void SetFocalPoint(const Vector3f& focal_point);
+		inline const Vector3f& GetFocalPoint() const { return m_FocalPoint; }
+		Vector3f GetUpDirection() const;
+		Vector3f GetRightDirection() const;
+		Vector3f GetForwardDirection() const;
+		glm::quat GetOrientation() const;
+
+		virtual Matrix4f GetProjectionMatrix() override;
+		virtual Matrix4f GetViewMatrix() override;
+
+	protected:
+
+		float m_FieldOfView = glm::radians(90.0f);
+		float m_NearPlane = 0.1f;
+		float m_FarPlane = 100.0f;
+		float m_Pitch = 0.0f;
+		float m_Yaw = 0.0f;
+		float m_Distance = 10.0f;
+		Vector2f m_Viewport = Vector2f(0.0f, 0.0f);
+		Vector3f m_FocalPoint = { 0.0f, 0.0f, 0.0f };
 	};
 }

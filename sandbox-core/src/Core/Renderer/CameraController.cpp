@@ -165,4 +165,117 @@ namespace sb {
 
 		return true;
 	}
+
+	// Editor
+
+	EditorCameraController::EditorCameraController(float field_of_view, float near_plane, float far_plane)
+		:
+		m_Camera(field_of_view, near_plane, far_plane)
+
+	{}
+
+	void EditorCameraController::OnUpdate(Time ts) {
+
+		const Vector2f& mouse{ Input::GetMouseX(), Input::GetMouseY() };
+
+		if (m_UpdateViewInit) {
+
+			m_InitialMousePosition = mouse;
+			m_UpdateViewInit = false;
+		}
+
+		Vector2f delta = (mouse - m_InitialMousePosition) * 0.003f;
+		m_InitialMousePosition = mouse;
+
+		if (Input::IsKeyPressed(Key::LeftAlt)) {
+
+			if (Input::IsKeyPressed(Key::LeftShift) && Input::IsMouseButtonPressed(Mouse::ButtonLeft))
+				MousePan(delta);
+			else if (Input::IsMouseButtonPressed(Mouse::ButtonLeft))
+				MouseRotate(delta);
+			else if (Input::IsMouseButtonPressed(Mouse::ButtonRight))
+				MouseZoom(delta.y);
+		}
+
+		else {
+
+			if (Input::IsKeyPressed(Key::LeftShift) && Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
+				MousePan(delta);
+			else if (Input::IsMouseButtonPressed(Mouse::ButtonMiddle))
+				MouseRotate(delta);
+			else if (Input::IsMouseButtonPressed(Mouse::ButtonRight))
+				MouseZoom(delta.y);
+		}
+	}
+
+	void EditorCameraController::OnEvent(Event& e) {
+
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<MouseScrolledEvent>(SB_BIND_EVENT_FN(EditorCameraController::OnMouseScroll));
+	}
+
+	void EditorCameraController::OnResize(float width, float height) {
+
+		m_Camera.SetViewportSize(width, height);
+	}
+
+	void EditorCameraController::MousePan(const Vector2f& delta) {
+
+		Vector2f speed = GetPanSpeed();
+		Vector3f focalPoint = m_Camera.GetFocalPoint();
+		focalPoint += -m_Camera.GetRightDirection() * delta.x * speed.x * m_Camera.GetDistance();
+		focalPoint += m_Camera.GetUpDirection() * delta.y * speed.y * m_Camera.GetDistance();
+		m_Camera.SetFocalPoint(focalPoint);
+	}
+
+	void EditorCameraController::MouseRotate(const Vector2f& delta) {
+
+		float yawSign = m_Camera.GetUpDirection().y < 0 ? -1.0f : 1.0f;
+		m_Camera.SetYaw(m_Camera.GetYaw() + yawSign * delta.x * GetRotationSpeed());
+		m_Camera.SetPitch(m_Camera.GetPitch() + delta.y * GetRotationSpeed());
+	}
+
+	void EditorCameraController::MouseZoom(float delta) {
+
+		m_Camera.SetDistance(m_Camera.GetDistance() - delta * GetZoomSpeed());
+		if (m_Camera.GetDistance() < 1.0f) {
+
+			m_Camera.SetFocalPoint(m_Camera.GetFocalPoint() + m_Camera.GetForwardDirection());
+			m_Camera.SetDistance(1.0f);
+		}
+	}
+
+	Vector2f EditorCameraController::GetPanSpeed() const {
+
+		float x = std::min(m_Camera.GetViewport().x / 1000.0f, 2.4f); // max = 2.4f
+		float xFactor = 0.0366f * (x * x) - 0.1778f * x + 0.3021f;
+
+		float y = std::min(m_Camera.GetViewport().y / 1000.0f, 2.4f); // max = 2.4f
+		float yFactor = 0.0366f * (y * y) - 0.1778f * y + 0.3021f;
+
+		return { xFactor, yFactor };
+	}
+
+	float EditorCameraController::GetRotationSpeed() const {
+
+		return 0.8f;
+	}
+
+	float EditorCameraController::GetZoomSpeed() const {
+
+		float distance = m_Camera.GetDistance() * 0.2f;
+		distance = std::max(distance, 0.0f);
+		float speed = distance * distance;
+		speed = std::min(speed, 100.0f); // max speed = 100
+
+		return speed;
+	}
+
+	bool EditorCameraController::OnMouseScroll(MouseScrolledEvent& e) {
+
+		float delta = e.GetYOffset() * 0.1f;
+		MouseZoom(delta);
+
+		return true;
+	}
 }
