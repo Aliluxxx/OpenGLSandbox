@@ -26,11 +26,6 @@ namespace sb {
 		m_FarPlane = isnan(far_plane) ? m_FarPlane : far_plane;
 	}
 
-	void OrthographicCamera::SetRotation(float rotation) {
-
-		m_Rotation = rotation;
-	}
-
 	void OrthographicCamera::SetLeft(float left) {
 
 		m_Left = left;
@@ -68,10 +63,7 @@ namespace sb {
 
 	Matrix4f OrthographicCamera::GetViewMatrix() {
 
-		Matrix4f transform = glm::translate(Matrix4f(1.0f), m_Position) *
-			glm::rotate(Matrix4f(1.0f), m_Rotation, Vector3f(0.0f, 0.0f, 1.0f));
-
-		return glm::inverse(transform);
+		return glm::inverse(glm::translate(Matrix4f(1.0f), m_Position));
 	}
 
 	// Perspective

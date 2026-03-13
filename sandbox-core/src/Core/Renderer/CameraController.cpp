@@ -25,7 +25,6 @@ namespace sb {
 		const float deltaTime = ts.AsSeconds();
 
 		Vector3f position = m_Camera.GetPosition();
-		float rotation = m_Camera.GetRotation();
 
 		if (Input::IsKeyPressed(Key::W))
 			position.y += m_TranslationSpeed * deltaTime;
@@ -39,14 +38,7 @@ namespace sb {
 		else if (Input::IsKeyPressed(Key::D))
 			position.x += m_TranslationSpeed * deltaTime;
 
-		if (Input::IsKeyPressed(Key::Q))
-			rotation += m_RotationSpeed * deltaTime;
-
-		if (Input::IsKeyPressed(Key::E))
-			rotation -= m_RotationSpeed * deltaTime;
-
 		m_Camera.SetPosition(position);
-		m_Camera.SetRotation(rotation);
 	}
 
 	void OrthographicCameraController::OnEvent(Event& e) {

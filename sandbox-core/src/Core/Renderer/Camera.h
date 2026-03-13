@@ -31,8 +31,6 @@ namespace sb {
 		OrthographicCamera() = default;
 
 		void SetRectangle(float left, float right, float bottom, float top, float near_plane = NAN, float far_plane = NAN);
-		void SetRotation(float rotation);
-		inline float GetRotation() const { return m_Rotation; }
 		void SetLeft(float left);
 		inline float GetLeft() const { return m_Left; }
 		void SetRight(float right);
@@ -51,13 +49,12 @@ namespace sb {
 
 	protected:
 
-		float m_Rotation = 0.0f;
 		float m_Left = -1.0f;
 		float m_Right = 1.0f;
 		float m_Bottom = -1.0f;
 		float m_Top = 1.0f;
 		float m_NearPlane = -1.0f;
-		float m_FarPlane = -1.0f;
+		float m_FarPlane = 1.0f;
 	};
 
 	// Perspective
